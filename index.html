@@ -34,9 +34,9 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            /* Slightly larger, clearer dot texture */
-            background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1.5px, transparent 1.5px);
-            background-size: 28px 28px;
+            /* Fixed dot texture from your image */
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 35px 35px;
             z-index: -1;
             pointer-events: none;
         }
@@ -59,14 +59,7 @@
             backdrop-filter: blur(15px);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
             transition: var(--transition);
-        }
-        .logo-1 img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
         }
         .logo-1:hover { border-color: var(--electric-blue); transform: rotate(5deg); }
 
@@ -144,31 +137,70 @@
             50% { transform: translateY(-25px); }
         }
 
-        /* 5: HORIZONTAL GALLERY */
-        .gallery-row-5 {
-            display: flex; gap: 20px; overflow-x: auto;
-            padding: 20px 0; scrollbar-width: none;
-        }
-        .gallery-row-5::-webkit-scrollbar { display: none; }
         
-        .p-card {
-            min-width: 140px; height: 140px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            display: flex; align-items: center; justify-content: center;
-            backdrop-filter: blur(10px);
-            transition: var(--transition);
-        }
-        .p-card img { width: 70%; opacity: 0.6; transition: 0.3s; }
-        .p-card:hover { border-color: var(--electric-blue); transform: scale(1.05); }
-        .p-card:hover img { opacity: 1; }
-        .gallery-track, .p-card {
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-        }
+/* 5: HORIZONTAL GALLERY */
+.gallery-row-5 {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+}
 
-        /* 6, 7: BOTTOM ROW */
+.gallery-track {
+    display: flex;
+    gap: 18px;
+    width: max-content;
+    animation: marquee 22s linear infinite;
+    will-change: transform;
+}
+
+.p-card {
+    flex: 0 0 auto;
+    width: 148px;
+    height: 148px;
+    background: #111;
+    border: 1px solid var(--glass-border);
+    border-radius: 22px;
+    overflow: hidden;
+    position: relative;
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
+}
+
+.p-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.p-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+}
+
+.p-card:hover {
+    border-color: var(--electric-blue);
+    transform: translateY(-2px) scale(1.03);
+}
+
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+@media (max-width: 900px) {
+    .gallery-track { gap: 14px; }
+    .p-card { width: 132px; height: 132px; }
+}
+
+/* 6, 7: BOTTOM ROW */
+
         .bottom-actions {
             display: flex; justify-content: space-between; align-items: flex-end;
             margin-top: 30px;
@@ -206,25 +238,11 @@
 
         /* MOBILE RESPONSIVENESS */
         @media (max-width: 900px) {
-            .hero-container { padding: 90px 0 40px 0; }
-            .middle-layout { grid-template-columns: 1fr; text-align: center; gap: 26px; }
-            .text-area { padding: 0 7%; }
-            .robot-img-4 {
-                justify-self: stretch;
-                width: 100vw;
-                margin-left: calc(50% - 50vw);
-                order: -1;
-            }
-            .robot-img-4 img {
-                width: 100%;
-                max-width: none;
-                height: 280px;
-                object-fit: cover;
-                border-radius: 0;
-            }
+            .middle-layout { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+            .robot-img-4 { justify-self: center; order: -1; }
+            .robot-img-4 img { max-width: 300px; }
             .description { margin: 0 auto 25px; }
-            .gallery-row-5 { padding-left: 7%; padding-right: 7%; }
-            .bottom-actions { flex-direction: column; align-items: center; gap: 40px; text-align: center; padding: 0 7%; }
+            .bottom-actions { flex-direction: column; align-items: center; gap: 40px; text-align: center; }
             .buy-now-box-7 { text-align: center; }
             .text-area h1 { font-size: 3.5rem; }
             .p-card { min-width: 110px; height: 110px; }
@@ -273,19 +291,21 @@
             </div>
         </section>
 
-        <!-- 5: Horizontal Image Gallery -->
-        <section class="gallery-row-5">
-            <div class="gallery-track">
-                <div class="p-card"><img src="p1.png" alt="p1" onerror="this.parentNode.innerText='p1.png'"></div>
-                <div class="p-card"><img src="p2.png" alt="p2" onerror="this.parentNode.innerText='p2.png'"></div>
-                <div class="p-card"><img src="p3.png" alt="p3" onerror="this.parentNode.innerText='p3.png'"></div>
-                <div class="p-card"><img src="p4.png" alt="p4" onerror="this.parentNode.innerText='p4.png'"></div>
-                <div class="p-card"><img src="p5.png" alt="p5" onerror="this.parentNode.innerText='p5.png'"></div>
-                <div class="p-card"><img src="p6.png" alt="p6" onerror="this.parentNode.innerText='p6.png'"></div>
-            </div>
-        </section>
+        
+<!-- 5: Horizontal Image Gallery -->
+<section class="gallery-row-5">
+    <div class="gallery-track" id="galleryTrack">
+        <div class="p-card"><img src="p1.png" alt="p1" onerror="this.style.display='none'"></div>
+        <div class="p-card"><img src="p2.png" alt="p2" onerror="this.style.display='none'"></div>
+        <div class="p-card"><img src="p3.png" alt="p3" onerror="this.style.display='none'"></div>
+        <div class="p-card"><img src="p4.png" alt="p4" onerror="this.style.display='none'"></div>
+        <div class="p-card"><img src="p5.png" alt="p5" onerror="this.style.display='none'"></div>
+        <div class="p-card"><img src="p6.png" alt="p6" onerror="this.style.display='none'"></div>
+    </div>
+</section>
 
-        <!-- 6, 7: Features & Buy -->
+<!-- 6, 7: Features & Buy -->
+
         <section class="bottom-actions">
             <ul class="features-6">
                 <li><i data-lucide="check-circle"></i> 25+ Smart Animations</li>
@@ -300,14 +320,7 @@
                 <p class="slogan-7">Bring your<br>future today</p>
             </div>
         </section>
-
-        <!-- 8: Explore Button -->
-        <button class="explore-8" onclick="document.getElementById('details').scrollIntoView({behavior:'smooth'})">
-            Explore More
-            <i data-lucide="chevron-down"></i>
-        </button>
-
-    </main>
+</main>
 
     <!-- Details Section -->
     <section class="details-section" id="details">
@@ -318,36 +331,37 @@
     </section>
 
     <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
+        
+    // Initialize Lucide Icons
+    lucide.createIcons();
 
-        // Duplicate gallery items once for a seamless infinite marquee
-        const galleryTrack = document.querySelector('.gallery-track');
-        if (galleryTrack) {
-            const originalItems = Array.from(galleryTrack.children);
-            originalItems.forEach((item) => {
-                const clone = item.cloneNode(true);
-                clone.setAttribute('aria-hidden', 'true');
-                galleryTrack.appendChild(clone);
-            });
-        }
-
-        // Reveal animations on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = "1";
-                    entry.target.style.transform = "translateY(0)";
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.features-6 li').forEach(el => {
-            el.style.opacity = "0";
-            el.style.transform = "translateY(20px)";
-            el.style.transition = "0.8s ease-out";
-            observer.observe(el);
+    // Make the gallery continuously loop by cloning cards once
+    const galleryTrack = document.getElementById('galleryTrack');
+    if (galleryTrack) {
+        const originalCards = Array.from(galleryTrack.children);
+        originalCards.forEach(card => {
+            const clone = card.cloneNode(true);
+            galleryTrack.appendChild(clone);
         });
-    </script>
+    }
+
+    // Reveal animations on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.p-card, .features-6 li').forEach(el => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(20px)";
+        el.style.transition = "0.8s ease-out";
+        observer.observe(el);
+    });
+</script>
+
 </body>
 </html>
